@@ -1,0 +1,6 @@
+[package]
+name = "palombe"
+version = "0.1.0"
+authors = ["Yvan Sraka <yvan@sraka.pw>"]
+
+[dependencies]
