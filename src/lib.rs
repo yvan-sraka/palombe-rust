@@ -1,5 +1,10 @@
+#![feature(specialization)]
 extern crate libc;
 use std::io::prelude::*;
+
+#[macro_use]
+extern crate pyo3;
+use pyo3::prelude::*;
 
 fn __mkfifo(name: String) -> String {
     let prefix = "/tmp/palombe/";
@@ -11,6 +16,7 @@ fn __mkfifo(name: String) -> String {
     return path;
 }
 
+#[pyfunction]
 #[no_mangle]
 pub extern "C" fn send(name: String, value: String) {
     let path = __mkfifo(name);
@@ -20,6 +26,7 @@ pub extern "C" fn send(name: String, value: String) {
         .expect("Error: couldn't write the named pipe");
 }
 
+#[pyfunction]
 #[no_mangle]
 pub extern "C" fn receive(name: String) -> String {
     let path = __mkfifo(name);
