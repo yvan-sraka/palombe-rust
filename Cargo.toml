@@ -1,9 +1,9 @@
 [package]
 name = "palombe"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Yvan Sraka <yvan@sraka.pw>"]
 description = "Palombe lets you send and receive messages synchronously through different processes using named pipes"
 license = "GPL-3.0"
 
 [dependencies]
-libc = "0.2.37"
+libc = "0.2"
