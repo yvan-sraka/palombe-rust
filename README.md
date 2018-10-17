@@ -4,11 +4,22 @@ Palombe lets you send and receive messages synchronously through different proce
 
 ## Quick example
 
+### Thread A
+
 ```rust
 extern create palombe;
 
 fn main() {
     palombe.send("foo", "bar");
+}
+```
+
+### Thread B
+
+```rust
+extern create palombe;
+
+fn main() {
     println("{}", palombe.receive("foo")); // bar
 }
 ```
