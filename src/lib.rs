@@ -14,12 +14,10 @@ fn __mkfifo(name: String) -> String {
 #[no_mangle]
 pub extern "C" fn send(name: String, value: String) {
     let path = __mkfifo(name);
-    std::thread::spawn(move || {
-        let mut file = std::fs::OpenOptions::new().write(true).open(path)
-            .expect("Error: couldn't open the named pipe");
-        file.write_all(value.as_bytes())
-            .expect("Error: couldn't write the named pipe");
-    });
+    let mut file = std::fs::OpenOptions::new().write(true).open(path)
+        .expect("Error: couldn't open the named pipe");
+    file.write_all(value.as_bytes())
+        .expect("Error: couldn't write the named pipe");
 }
 
 #[no_mangle]
