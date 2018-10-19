@@ -5,7 +5,7 @@ fn __mkfifo(name: String) -> String {
     let prefix = "/tmp/palombe/";
     let path = format!("{}{}", prefix, name);
     std::fs::create_dir_all(prefix)
-        .expect(&format!("Error: couldn't create the {} folder", prefix));
+        .expect(&format!("Error: couldn't create the folder {}", prefix));
     let filename = std::ffi::CString::new(path.clone()).unwrap();
     unsafe { libc::mkfifo(filename.as_ptr(), 0o600); }
     return path;
@@ -33,6 +33,8 @@ pub extern "C" fn receive(name: String) -> String {
         let len = reader.read_line(&mut buffer)
             .expect("Error: couldn't read the input file");
         if len == 0 {
+            std::fs::remove_file(&path)
+                .expect(&format!("Error: couldn't remove the file {}", path));
             return buffer;
         }
     }
